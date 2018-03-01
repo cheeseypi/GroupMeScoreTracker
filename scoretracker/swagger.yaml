@@ -8,7 +8,7 @@ paths:
   /scorebot:
     post:
       summary: Responds to messages directed at it
-      operationId: scoretracker.tracker.recv_msg
+      operationId: tracker.recv_msg
       consumes:
         - application/json
       parameters:
