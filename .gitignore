@@ -2,3 +2,4 @@ MANIFEST
 dist/
 venv/
 __pycache__/
+data.json
