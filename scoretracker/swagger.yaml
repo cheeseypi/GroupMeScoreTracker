@@ -13,67 +13,35 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: attachments
-          required: false
+          name: body
+          required: true
           schema:
-            type: array
-            items:
-              type: string
-        - in: body
-          name: avatar_url
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: created_at
-          required: false
-          schema:
-            type: integer
-        - in: body
-          name: group_id
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: id
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: name
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: sender_id
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: sender_type
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: sender_guid
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: system
-          required: false
-          schema:
-            type: boolean
-        - in: body
-          name: text
-          required: false
-          schema:
-            type: string
-        - in: body
-          name: user_id
-          required: false
-          schema:
-            type: string
+            type: object
+            properties:
+              attachments:
+                type: array
+                items:
+                  type: string
+              created_at:
+                type: integer
+              group_id:
+                type: string
+              id:
+                type: string
+              name:
+                type: string
+              sender_id:
+                type: string
+              sender_type:
+                type: string
+              sender_guid:
+                type: string
+              system:
+                type: boolean
+              text:
+                type: string
+              user_id:
+                type: string
       responses:
         default:
           description: "Actually returns nothing"
