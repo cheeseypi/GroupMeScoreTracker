@@ -5,20 +5,14 @@ import json
 import requests
 
 BOT_ID = os.environ['BOT_ID']
-
-
-def openDatabaseToWrite():
-    return open('data.json', 'w+')
-
-
-def openDatabaseToRead():
-    return open('data.json', 'r')
+DB_FILE = 'data.json'
 
 
 def increment_score(score, person, number):
-    with openDatabaseToWrite() as db:
+    with open(DB_FILE, 'w+') as db:
         try:
-            database = json.load(db)
+            data = db.read()
+            database = json.loads(data)
         except Exception:
             database = {}
         try:
@@ -40,28 +34,33 @@ def show_score(person=None, score=None):
     rT = {}
     rT['bot_id'] = BOT_ID
     rT['text'] = ''
-    with openDatabaseToRead() as db:
-        try:
-            database = json.load(db)
-            if len(database) == 0:
-                raise Exception()
-        except Exception:
-            rT['text'] = 'There are no scores yet!'
-            requests.post('https://api.groupme.com/v3/bots/post',
-                          json.dumps(rT))
-            return
-        if person is not None:
-            rT['text'] += person + ':\n'
-            if score is not None:
-                rT['text'] += '    '+score+': '+database[person][score]+'\n'
-            else:
-                for sco in database[person].keys():
-                    rT['text'] += '    '+sco+': '+database[person][sco]+'\n'
-        else:
-            for per, scores in database.items():
+    try:
+        with open(DB_FILE, 'r') as db:
+            try:
+                data = db.read()
+                database = json.loads(data)
+                if len(database) == 0:
+                    raise Exception()
+            except Exception:
+                rT['text'] = 'There are no scores yet!'
+                requests.post('https://api.groupme.com/v3/bots/post',
+                              json.dumps(rT))
+                return
+            if person is not None:
                 rT['text'] += person + ':\n'
-                for sco in scores:
-                    rT['text'] += '    '+sco+': '+database[per][sco]+'\n'
+                if score is not None:
+                    rT['text'] += '    '+score+': '+database[person][score]+'\n'
+                else:
+                    for sco in database[person].keys():
+                        rT['text'] += '    '+sco+': '+database[person][sco]+'\n'
+            else:
+                for per, scores in database.items():
+                    rT['text'] += person + ':\n'
+                    for sco in scores:
+                        rT['text'] += '    '+sco+': '+database[per][sco]+'\n'
+    except Exception:
+        invalid_request()
+        return
     requests.post('https://api.groupme.com/v3/bots/post', json.dumps(rT))
 
 
@@ -101,4 +100,3 @@ def recv_msg():
             show_score()
         else:
             invalid_request()
-    # return connexion.request.json, 501
