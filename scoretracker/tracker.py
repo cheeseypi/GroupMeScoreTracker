@@ -76,12 +76,9 @@ def invalid_request():
 # /score show
 # /score show <person> [score]
 def recv_msg():
-    print("Message received")
     message = connexion.request.json['text']
     message = message.split(' ')
-    print(str(message))
     if message[0] == '/score':
-        print("Message is to me")
         if len(message) == 5:
             print("Change scores")
             score = message[2]

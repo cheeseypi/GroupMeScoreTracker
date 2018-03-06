@@ -5,7 +5,7 @@ info:
   description: A score tracker for GroupMe, promotes friendly competition
   version: "0.1b"
 paths:
-  /scorebot:
+  /:
     post:
       summary: Responds to messages directed at it
       operationId: tracker.recv_msg
