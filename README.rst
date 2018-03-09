@@ -2,7 +2,7 @@
 GroupMe Score Tracker
 =====================
 
-.. image::
+.. image:: https://travis-ci.org/cheeseypi/GroupMeScoreTracker.svg?branch=master
    :alt: Travis Build Badge
    :target: https://travis-ci.org/cheeseypi/GroupMeScoreTracker.svg?branch=master
 
