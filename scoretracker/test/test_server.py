@@ -7,12 +7,19 @@ from scoretracker import tracker
 
 class FakeArgAll():
     json = {'text': '/score show'}
+
+
 class FakeArgAllForOne():
     json = {'text': '/score show Ron'}
+
+
 class FakeArgOneForOne():
     json = {'text': '/score show Ron Dissappointment'}
+
+
 class FakeArgIncr():
     json = {'text': '/score Ron Dissappointment + 420'}
+
 
 class TestServer(unittest.TestCase):
     @mock.patch('scoretracker.tracker.connexion.request', FakeArgAll)
