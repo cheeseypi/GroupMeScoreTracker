@@ -2,8 +2,13 @@ language: python
 python:
   - "3.5"
   - "3.6"
+env:
+  - BOT_ID=TestID
 # command to install dependencies
 install:
   - pip install .
+  - pip install pylama pytest
 # command to run tests
-script: pytest
+script:
+  - pylama scoretracker/
+  - pytest
