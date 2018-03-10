@@ -48,6 +48,7 @@ def increment_score(score, person, number):
     Scorebot: ron:
                   disappointment: 420
     Ed: /score ron disappointment + 420
+    Scorebot: Incremented disappointment by 420 for ron
     Ed: /score show ron disappointment
     Scorebot: ron:
                   disappointment: 840
@@ -61,7 +62,9 @@ def increment_score(score, person, number):
 
     response = {
         'bot_id': BOT_ID,
-        'text': 'Incremented {} score by {} for {}'.format(score, number, person)
+        'text': 'Incremented {score} score by {number} for {person}'.format(
+            score=score, number=number, person=person
+        )
     }
     requests.post(POST_URL, json.dumps(response))
 
@@ -103,7 +106,10 @@ def show_score(person=None, score=None):
 
     elif person is None:
         response['text'] = '\n'.join(
-            '{person}: {scores}\n'.format(person=person, scores=get_scores(database, person))
+            '{person}: {scores}\n'.format(
+                person=person,
+                scores=get_scores(database, person)
+            )
             for person in database
         )
 
@@ -152,9 +158,8 @@ def recv_msg():
         if len(message) == 5:
             print("Change scores")
             _, person, score, plus_minus, number = message
-            if plus_minus == '-':
-                number *= -1
-            increment_score(score, person, number)
+            increment = -int(number) if plus_minus == '-' else int(number)
+            increment_score(score, person, increment)
         elif len(message) == 4:
             print("Show one score for one person")
             _, _, person, score = message
