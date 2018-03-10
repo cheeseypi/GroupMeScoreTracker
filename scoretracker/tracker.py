@@ -3,9 +3,10 @@ The main logic of the bot.
 
 This file implements the database and bot command parsing.
 """
-from collections import defaultdict
 import json
 import os
+
+from collections import defaultdict
 
 import connexion
 import requests
@@ -77,10 +78,10 @@ def get_scores(database, person, multi=True):
     displaying the scores of a single person or multiple people.
     """
     indent = '     ' if multi else ''
-    return '\n'.join(
+    return ''.join(
         indent + '{score}: {points}'.format(score=score, points=points)
         for score, points in database[person]
-    )
+    ).join('\n')
 
 
 def show_score(person=None, score=None):
@@ -106,7 +107,7 @@ def show_score(person=None, score=None):
 
     elif person is None:
         response['text'] = '\n'.join(
-            '{person}: {scores}\n'.format(
+            '{person}: \n{scores}'.format(
                 person=person,
                 scores=get_scores(database, person)
             )
