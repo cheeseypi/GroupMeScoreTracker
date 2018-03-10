@@ -56,7 +56,10 @@ def increment_score(score, person, number):
     """
     database = get_db()
 
-    database[person][score] += number
+    try:
+        database[person][score] += number
+    except KeyError:
+        database[person][score] = number
 
     with open(DB_FILE, 'w') as db:
         json.dump(database, db)
@@ -80,7 +83,7 @@ def get_scores(database, person, multi=True):
     indent = '     ' if multi else ''
     return ''.join(
         indent + '{score}: {points}'.format(score=score, points=points)
-        for score, points in database[person]
+        for score, points in database[person].items()
     ).join('\n')
 
 
