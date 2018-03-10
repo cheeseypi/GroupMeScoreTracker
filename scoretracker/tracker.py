@@ -59,10 +59,7 @@ def increment_score(score, person, number):
     """
     database = get_db()
 
-    try:
-        database[person][score] += number
-    except KeyError:
-        database[person][score] = number
+    database[person][score] += number
 
     with open(DB_FILE, 'w') as db:
         json.dump(database, db)
