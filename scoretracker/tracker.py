@@ -7,9 +7,8 @@ from collections import defaultdict
 import json
 import os
 
-import requests
-
 import connexion
+import requests
 
 
 BOT_ID = os.environ['BOT_ID']
@@ -45,13 +44,13 @@ def increment_score(score, person, number):
     """
     Increments/decrements the score for the given user by number.
 
-    @ed> /score show ron disappointment
-    @scorebot> ron:
-                   disappointment: 420
-    @ed> /score ron disappointment + 420
-    @ed> /score show ron disappointment
-    @scorebot> ron:
-                   disappointment: 840
+    Ed: /score show ron disappointment
+    Scorebot: ron:
+                  disappointment: 420
+    Ed: /score ron disappointment + 420
+    Ed: /score show ron disappointment
+    Scorebot: ron:
+                  disappointment: 840
     """
     database = get_db()
 
@@ -84,14 +83,14 @@ def get_scores(database, person, multi=True):
 def show_score(person=None, score=None):
     """
     Sends to the chat the information about:
-    * All (user, score) combinations
+    * All (person, score) combinations
     * All scores of a given user
     * A given user's score in a specific topic
 
-    @ed> /score show ron
-    @scorebot> ron:
-                   disappointment: 420
-                   understanding-the-rules: -69
+    Ed: /score show ron
+    Scorebot: ron:
+                  disappointment: 420
+                  understanding-the-rules: -69
     """
     response = {'bot_id': BOT_ID}
     response['text'] = ''
@@ -104,12 +103,12 @@ def show_score(person=None, score=None):
 
     elif person is None:
         response['text'] = '\n'.join(
-            '{person}:\n{scores}'.format(person=person, scores=get_scores(database, person))
+            '{person}: {scores}\n'.format(person=person, scores=get_scores(database, person))
             for person in database
         )
 
     elif person not in database:
-        response['text'] = 'User is either unrecognized or has not points'
+        response['text'] = 'User is either unrecognized or has no points'
 
     elif score is None:
         response['text'] = get_scores(database, person, multi=False)
