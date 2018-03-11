@@ -20,28 +20,37 @@ class FakeArgOneForOne():
 class FakeArgIncr():
     json = {'text': '/score Ron Dissappointment + 420'}
 
-
+@mock.patch('builtins.open', mock.mock_open(read_data='{"Ron": {"Dissappointment": 420}}'))
+@mock.patch('scoretracker.tracker.requests.post', return_value=None)
 class TestServer(unittest.TestCase):
     @mock.patch('scoretracker.tracker.connexion.request', FakeArgAll)
-    @mock.patch('scoretracker.tracker.show_score', return_value=None)
-    def test_main_loop(self, shsc):
+    def test_main_loop(self, rpost):
         tracker.recv_msg()
-        shsc.assert_called_once_with()
+        try:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"text": "Ron: \\n    Dissappointment: 420\\n", "bot_id": "TestID"}')
+        except AssertionError:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"bot_id": "TestID", "text": "Ron: \\n    Dissappointment: 420\\n"}')
 
     @mock.patch('scoretracker.tracker.connexion.request', FakeArgAllForOne)
-    @mock.patch('scoretracker.tracker.show_score', return_value=None)
-    def test_show_all_individual(self, shsc):
+    def test_show_all_individual(self, rpost):
         tracker.recv_msg()
-        shsc.assert_called_once_with('Ron')
+        try:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"text": "Dissappointment: 420\\n", "bot_id": "TestID"}')
+        except AssertionError:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"bot_id": "TestID", "text": "Dissappointment: 420\\n"}')
 
     @mock.patch('scoretracker.tracker.connexion.request', FakeArgOneForOne)
-    @mock.patch('scoretracker.tracker.show_score', return_value=None)
-    def test_show_one_individual(self, shsc):
+    def test_show_one_individual(self, rpost):
         tracker.recv_msg()
-        shsc.assert_called_once_with('Ron', 'Dissappointment')
+        try:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"text": "Ron:\\n    Dissappointment: 420", "bot_id": "TestID"}')
+        except AssertionError:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"bot_id": "TestID", "text": "Ron:\\n    Dissappointment: 420"}')
 
     @mock.patch('scoretracker.tracker.connexion.request', FakeArgIncr)
-    @mock.patch('scoretracker.tracker.increment_score', return_value=None)
-    def test_inc_score(self, incsc):
+    def test_inc_score(self, rpost):
         tracker.recv_msg()
-        incsc.assert_called_once_with('Dissappointment', 'Ron', 420)
+        try:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"text": "Incremented Dissappointment score by 420 for Ron", "bot_id": "TestID"}')
+        except AssertionError:
+            rpost.assert_called_once_with(tracker.POST_URL, '{"bot_id": "TestID", "text": "Incremented Dissappointment score by 420 for Ron"}')
