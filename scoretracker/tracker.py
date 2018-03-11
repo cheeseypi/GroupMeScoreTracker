@@ -82,9 +82,9 @@ def get_scores(database, person, multi=True):
     """
     indent = '     ' if multi else ''
     return ''.join(
-        indent + '{score}: {points}'.format(score=score, points=points)
+        indent + '{score}: {points}\n'.format(score=score, points=points)
         for score, points in database[person].items()
-    ).join('\n')
+    )
 
 
 def show_score(person=None, score=None):
@@ -110,7 +110,7 @@ def show_score(person=None, score=None):
 
     elif person is None:
         response['text'] = '\n'.join(
-            '{person}: \n{scores}'.format(
+            '{person}:\n{scores}'.format(
                 person=person,
                 scores=get_scores(database, person)
             )
