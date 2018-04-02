@@ -61,6 +61,11 @@ def increment_score(score, person, number):
     except KeyError:
         database[person][score] = number
 
+    if database[person][score] == 0:
+        database[person].pop(score)
+        if database[person] == {}:
+            database.pop(person)
+
     with open(DB_FILE, 'w') as db:
         json.dump(database, db)
 
@@ -138,7 +143,10 @@ def invalid_request():
     """
     response = {
         'bot_id': BOT_ID,
-        'text': 'That was not a valid scorebot command'
+        'text': 'That was not a valid scorebot command. Valid commands include:\n'+
+        '/score show: Shows all scores\n'+
+        '/score show <person> [category]: Shows all of [person]\'s scores, or score in [category]\n'+
+        '/score <person> <category> <+/-> <#>: Modifies [person]\'s score in [category] by [#]'
     }
     requests.post(POST_URL, json.dumps(response))
 
@@ -164,15 +172,15 @@ def recv_msg():
             _, person, score, plus_minus, number = message
             increment = -int(number) if plus_minus == '-' else int(number)
             increment_score(score, person, increment)
-        elif len(message) == 4:
+        elif len(message) == 4 and message[1] == 'show':
             print("Show one score for one person")
             _, _, person, score = message
             show_score(person, score)
-        elif len(message) == 3:
+        elif len(message) == 3 and message[1] == 'show':
             print("Show all scores for one person")
             person = message[2]
             show_score(person)
-        elif len(message) == 2:
+        elif len(message) == 2 and message[1] == 'show':
             print("Show all scores for everyone")
             show_score()
         else:

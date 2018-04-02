@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='GroupMeScoreTracker',
-    version='0.1b2',
+    version='1.0',
     url='#',
     author='Matthew Doto',
     author_email='matt@mattdoto.com',
