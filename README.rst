@@ -8,9 +8,10 @@ GroupMe Score Tracker
 
 Tracks scores for GroupMe, allowing for friendly competition.
 
-To start, run `python -m scoretracker.start_server`. Runs on port 6660.
+To start, run ``python -m scoretracker.start_server``. Runs on port 6660.
 
 Future:
-- `SCORETRACKER_PORT` environment variable
+
+- ``SCORETRACKER_PORT`` environment variable
 - Case-insensitivity in person names/categories
 - Double-space handling in commands from groupme
