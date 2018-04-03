@@ -34,7 +34,10 @@ def get_db(filename=DB_FILE):
     """
     try:
         with open(filename, 'r') as db:
-            data = json.load(db)
+            data = {
+                person: defaultdict(int, scores)
+                for person, scores in json.load(db)
+            }
     except (FileNotFoundError, IOError, json.JSONDecodeError):
         data = {}
 
@@ -56,10 +59,7 @@ def increment_score(score, person, number):
     """
     database = get_db()
 
-    try:
-        database[person][score] += number
-    except KeyError:
-        database[person][score] = number
+    database[person][score] += number
 
     if database[person][score] == 0:
         database[person].pop(score)
