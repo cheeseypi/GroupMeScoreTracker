@@ -3,7 +3,8 @@ from distutils.core import setup
 setup(
     name='GroupMeScoreTracker',
     version='1.0',
-    url='#',
+    url='https://github.com/cheeseypi/GroupMeScoreTracker',
+    download_url='https://github.com/cheeseypi/GroupMeScoreTracker/archive/v1.0.tar.gz',
     author='Matthew Doto',
     author_email='matt@mattdoto.com',
     packages=['scoretracker'],
