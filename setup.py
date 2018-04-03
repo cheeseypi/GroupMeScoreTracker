@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='GroupMeScoreTracker',
-    version='1.0',
+    version='1.1',
     url='https://github.com/cheeseypi/GroupMeScoreTracker',
     download_url='https://github.com/cheeseypi/GroupMeScoreTracker/archive/v1.0.tar.gz',
     author='Matthew Doto',
