@@ -12,7 +12,7 @@ import connexion
 import requests
 
 
-BOT_ID = os.environ.get('BOT_ID','TestID')
+BOT_ID = os.environ.get('BOT_ID', 'TestID')
 DB_FILE = 'data.json'
 POST_URL = 'https://api.groupme.com/v3/bots/post'
 
@@ -143,9 +143,10 @@ def invalid_request():
     """
     response = {
         'bot_id': BOT_ID,
-        'text': 'That was not a valid scorebot command. Valid commands include:\n'+
-        '/score show: Shows all scores\n'+
-        '/score show <person> [category]: Shows all of [person]\'s scores, or score in [category]\n'+
+        'text': 'That was not a valid scorebot command. Valid commands include:\n' +
+        '/score show: Shows all scores\n' +
+        '/score show <person> [category]:' +
+        'Shows all [person]\'s scores, or score in [category]\n' +
         '/score <person> <category> <+/-> <#>: Modifies [person]\'s score in [category] by [#]'
     }
     requests.post(POST_URL, json.dumps(response))
