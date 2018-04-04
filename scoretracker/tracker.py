@@ -166,6 +166,7 @@ def recv_msg():
     """
     message = connexion.request.json['text']
     message = message.split(' ')
+    message = list(filter(None, message))
     if message[0] == '/score':
         if len(message) == 5:
             print("Change scores")
