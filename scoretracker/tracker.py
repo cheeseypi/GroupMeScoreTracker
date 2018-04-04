@@ -12,7 +12,7 @@ import connexion
 import requests
 
 
-BOT_ID = os.environ['BOT_ID']
+BOT_ID = os.environ.get('BOT_ID','TestID')
 DB_FILE = 'data.json'
 POST_URL = 'https://api.groupme.com/v3/bots/post'
 
