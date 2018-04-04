@@ -22,3 +22,5 @@ Variable               Description                                              
 __ groupme_
 
 To start, run ``python -m scoretracker.start_server``. By default runs on port 6660.
+
+To run it in the background, this is what I use: ``setsid python3 scoretracker/start_server.py &>/dev/null < /dev/zero &``
