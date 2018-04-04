@@ -1,3 +1,5 @@
+import os
+
 import connexion
 
 PORT=int(os.environ.get('SCORETRACKER_PORT','6660'))
