@@ -22,9 +22,3 @@ Variable               Description                                              
 __ groupme_
 
 To start, run ``python -m scoretracker.start_server``. By default runs on port 6660.
-
-Future:
-
-- ``SCORETRACKER_PORT`` environment variable
-- Case-insensitivity in person names/categories
-- Double-space handling in commands from groupme
