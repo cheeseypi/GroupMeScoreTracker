@@ -172,11 +172,11 @@ def recv_msg():
             print("Change scores")
             _, person, score, plus_minus, number = message
             increment = -int(number) if plus_minus == '-' else int(number)
-            increment_score(score, person, increment)
+            increment_score(score.lower(), person, increment)
         elif len(message) == 4 and message[1] == 'show':
             print("Show one score for one person")
             _, _, person, score = message
-            show_score(person, score)
+            show_score(person, score.lower())
         elif len(message) == 3 and message[1] == 'show':
             print("Show all scores for one person")
             person = message[2]
