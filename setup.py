@@ -1,10 +1,12 @@
 from setuptools import setup
 
+ver = '1.5'
+
 setup(
     name='GroupMeScoreTracker',
-    version='1.5',
+    version=ver,
     url='https://github.com/cheeseypi/GroupMeScoreTracker',
-    download_url='https://github.com/cheeseypi/GroupMeScoreTracker/archive/v1.5.tar.gz',
+    download_url='https://github.com/cheeseypi/GroupMeScoreTracker/archive/v'+ver+'.tar.gz',
     author='Matthew Doto',
     author_email='matt@mattdoto.com',
     packages=['scoretracker'],
