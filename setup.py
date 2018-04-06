@@ -1,6 +1,6 @@
 from setuptools import setup
 
-ver = '1.6'
+ver = '1.7'
 
 setup(
     name='GroupMeScoreTracker',
